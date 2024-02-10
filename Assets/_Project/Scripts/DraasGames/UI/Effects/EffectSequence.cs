@@ -25,6 +25,7 @@ namespace DraasGames.UI.Effects
 
         public void CancelSequence()
         {
+            
         }
 
         private async UniTaskVoid PlaySequential()
