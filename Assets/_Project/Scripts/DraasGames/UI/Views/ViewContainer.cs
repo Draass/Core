@@ -23,6 +23,19 @@ namespace DraasGames.UI.Views
 
                 var path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(view);
                 
+                int index = path.IndexOf("Resources", StringComparison.Ordinal);
+
+                if (index >= 0)
+                {
+                    // Remove everything before "Resources" and ".prefab" at the end
+                    string result = path.Substring(index + "Resources".Length + 1).Replace(".prefab", "");
+                    path = result;
+                }
+                else
+                {
+                    Debug.LogWarning("Prefab is located outside of Resources folder and probably won't be instantiated in runtime!");
+                }
+
                 _viewPath.Add(derivedType, path);
                 Debug.Log("Added view of " + derivedType + " with path " + path);
             }
