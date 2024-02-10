@@ -1,7 +1,7 @@
 ﻿using DraasGames.UI.Views;
 using Zenject;
 
-namespace DraasGames
+namespace DraasGames.Infrastructure.Installers
 {
     public class CoreInstaller : MonoInstaller
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5266879705419660847}
   - component: {fileID: 7125556807544921474}
   - component: {fileID: 1211082305844991232}
-  - component: {fileID: 6592214636674550525}
+  - component: {fileID: 8095685925528292516}
   m_Layer: 0
   m_Name: TestView
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6592214636674550525
+--- !u!114 &8095685925528292516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,6 +87,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9104053750635632727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21355125570d4bafa61f9c4e1c7bf311, type: 3}
+  m_Script: {fileID: 11500000, guid: 99a27cf2ee9c4bfd98e726a1c32461ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
