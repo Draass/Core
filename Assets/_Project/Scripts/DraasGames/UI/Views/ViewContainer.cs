@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace DraasGames.UI.Views
 {
@@ -12,41 +9,34 @@ namespace DraasGames.UI.Views
     {
         [SerializeField] private List<View> _views;
         
-        private Dictionary<Type, string> _viewPath = new Dictionary<Type, string>();
+        private Dictionary<Type, string> _viewPaths = new();
 
+        private IVewPathRetrieveStrategy _pathRetrieveStrategy;
+        
+        public string GetViewPath<T>() => _viewPaths[typeof(T)];
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            _pathRetrieveStrategy = new ResourcesViewPathRetrieveStrategy();
+            
             foreach (var view in _views)
             {
                 Type derivedType = view.GetType();
-
-                var path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(view);
                 
-                int index = path.IndexOf("Resources", StringComparison.Ordinal);
-
-                if (index >= 0)
+                if (_viewPaths.TryGetValue(derivedType, out var viewPath))
                 {
-                    // Remove everything before "Resources" and ".prefab" at the end
-                    string result = path.Substring(index + "Resources".Length + 1).Replace(".prefab", "");
-                    path = result;
-                }
-                else
-                {
-                    Debug.LogWarning("Prefab is located outside of Resources folder and probably won't be instantiated in runtime!");
+                    if(!String.IsNullOrEmpty(viewPath))
+                        continue;
                 }
 
-                _viewPath.Add(derivedType, path);
+                var path = _pathRetrieveStrategy.RetrieveViewPath(view);
+
+                _viewPaths.Add(derivedType, path);
+                
                 Debug.Log("Added view of " + derivedType + " with path " + path);
             }
         }
 #endif
-
-        public string GetViewPath(View view)
-        {
-            Type derivedType = view.GetType();
-            
-            return _viewPath[derivedType];
-        }
     }
 }

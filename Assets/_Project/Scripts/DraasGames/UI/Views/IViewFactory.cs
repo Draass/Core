@@ -12,6 +12,7 @@ namespace DraasGames.UI.Views
     {
         private IInstantiator _instantiator;
         
+        [Inject]
         public ViewFactory(IInstantiator instantiator)
         {
             _instantiator = instantiator;
@@ -20,7 +21,9 @@ namespace DraasGames.UI.Views
         public T Create<T>(string path) where T : View
         {
             Debug.Log($"Trying to create prefab of {typeof(T)} by path {path}");
+            
             T prefab = Resources.Load<T>(path);
+            
             Debug.Log($"Prefab is {prefab}");
             
             return _instantiator.InstantiatePrefabForComponent<T>(prefab);
